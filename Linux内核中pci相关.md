@@ -22,42 +22,52 @@ PCI设备配置：PCI设备的配置空间包含设备的各种寄存器和属�
 
 以下是一些可以参考的Linux内核文档和源代码，以深入了解PCI枚举的实现细节：
 
-Linux PCI子系统文档：位于内核源代码的
-Documentation/PCI目录下，提供了关于PCI子系统的详细说明和使用指南。
+**Linux PCI子系统文档**：
 
-PCI驱动程序接口文档（PCI Driver Interface）：位于内核源代码的
-Documentation/driver-api/pci目录下，介绍了PCI驱动程序接口的使用方法和规范。
+位于内核源代码的Documentation/PCI目录下，提供了关于PCI子系统的详细说明和使用指南。
 
-PCI设备驱动程序示例代码：位于内核源代码的
-drivers/pci目录下，包含了一些示例的PCI设备驱动程序代码，可以作为参考来了解PCI设备的初始化和管理。
+**PCI驱动程序接口文档（PCI Driver Interface）**：
 
-PCI核心代码：位于内核源代码的
-drivers/pci目录下，包含了PCI子系统的核心代码实现，如设备枚举、配置空间访问等。
+位于内核源代码的Documentation/driver-api/pci目录下，介绍了PCI驱动程序接口的使用方法和规范。
 
-PCI工具和调试工具：Linux内核提供了一些用于PCI调试和工具的功能，如
-lspci命令、pciutils包等，可以帮助你查看和调试PCI设备信息。
+**PCI设备驱动程序示例代码**：
 
-Linux内核邮件列表和社区：参与Linux内核开发者邮件列表和相关社区讨论，可以获取更深入的技术讨论和建议。
+位于内核源代码的drivers/pci目录下，包含了一些示例的PCI设备驱动程序代码，可以作为参考来了解PCI设备的初始化和管理。
+
+**PCI核心代码**：
+
+位于内核源代码的drivers/pci目录下，包含了PCI子系统的核心代码实现，如设备枚举、配置空间访问等。
+
+**PCI工具和调试工具**：
+
+Linux内核提供了一些用于PCI调试和工具的功能，如lspci命令、pciutils包等，可以帮助你查看和调试PCI设备信息。
+
+**Linux内核邮件列表和社区**：
+
+参与Linux内核开发者邮件列表和相关社区讨论，可以获取更深入的技术讨论和建议。
 
 
 ## 这些资源将为你提供深入了解Linux内核中PCI枚举实现的材料。你可以通过浏览这些文档和阅读相关的内核源代码来进一步研究PCI枚举的细节。
 
 
 以下是一些与Linux内核和PCI枚举相关的网站，你可以在这些网站上找到更多关于PCI枚举的详细信息和讨论：
-[Linux Kernel Documentation](https://www.kernel.org/doc/html/latest/index.html)
-：Linux内核官方文档的在线版本，其中包含了有关PCI子系统和驱动程序接口的详细文档。
 
-[Linux PCI Subsystem](https://www.kernel.org/doc/html/latest/PCI/index.html)
-：Linux内核文档中关于PCI子系统的部分，提供了关于PCI设备和驱动程序接口的详细信息。
+[Linux Kernel Documentation](https://www.kernel.org/doc/html/latest/index.html)：
+Linux内核官方文档的在线版本，其中包含了有关PCI子系统和驱动程序接口的详细文档。
 
-[Linux PCI Project](https://pci-ids.ucw.cz/)
-：PCI设备的标识数据库，可以查找和识别PCI设备的厂商ID和设备ID。
+[Linux PCI Subsystem](https://www.kernel.org/doc/html/latest/PCI/index.html)：
+Linux内核文档中关于PCI子系统的部分，提供了关于PCI设备和驱动程序接口的详细信息。
 
-[Linux Kernel Mailing List Archive](https://lkml.org/)
-：Linux内核邮件列表的存档，你可以搜索并查看有关PCI枚举和驱动程序开发的讨论。
+[Linux PCI Project](https://pci-ids.ucw.cz/)：
+PCI设备的标识数据库，可以查找和识别PCI设备的厂商ID和设备ID。
 
-[Kernel Newbies](https://kernelnewbies.org/)
-：面向新手的Linux内核开发者社区，提供了许多有关内核开发和驱动程序开发的指南和资源。
+[Linux Kernel Mailing List Archive](https://lkml.org/)：
+Linux内核邮件列表的存档，你可以搜索并查看有关PCI枚举和驱动程序开发的讨论。
+
+[Kernel Newbies](https://kernelnewbies.org/)：
+面向新手的Linux内核开发者社区，提供了许多有关内核开发和驱动程序开发的指南和资源。
+
+[The PCI ID Repository](https://pci-ids.ucw.cz/)：包含了PCI设备中使用的所有已知ID的公共存储库:供应商、设备、子系统和设备类的ID。它用于各种程序(例如PCI实用程序)，以显示完整的人类可读名称。如lspci、setpci、pci.ids等
 
 这些网站提供了丰富的文档、讨论和资源，可以帮助你更深入地了解Linux内核中PCI枚举的实现和相关的开发主题。
 
