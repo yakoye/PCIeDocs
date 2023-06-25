@@ -39,7 +39,7 @@ PCIe地址转换服务（ATS）详解
 
   PCIe Device/Function发送存储器读写请求前，首先在本地ATC查找是否有该地址的Entry。该地址为转换前地址，是DMA看到的虚地址；该地址在ATC中的Entry是指该虚地址经过地址转化后的真实物理地址。若在ATC内查找成功，直接采用转换后地址进行访问，否则给TA发送该虚地址的地址转换请求。
 
-![Alt text](./img/image230621_182122.png)
+![Alt text](./img/image_230621_182122.png)
 
   上图展示了一个基本的ATS转换请求-完成的操作。其动态工作流程如下：
 Device/Function产生ATS转换请求，经PCIe拓扑路由到达RC，RC将该请求推给TA；
@@ -53,9 +53,9 @@ TA在收到地址转换请求后，查找其本地ATPT，并给Device/Function�
 
   带有ATC的Device可以选择发送经过/未经地址转换的存储器访问请求。 存储器访问请求的TLP头标（64bit）格式如下图所示。ATS地址转换请求的TLP头标格式与存储器读请求TLP头标格式相似，ATS地址转换请求头标格式如下图所示。
 
-![Alt text](./img/image230621_182736.png)
+![Alt text](./img/image_230621_182736.png)
 
-![Alt text](./img/image230621_182811.png)
+![Alt text](./img/image_230621_182811.png)
 
 比较可见，地址转换请求与ATS地址转换请求TLP头标的主要区别在于以下3点：
 
