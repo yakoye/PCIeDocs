@@ -39,7 +39,7 @@ PCIe地址转换服务（ATS）详解
 
   PCIe Device/Function发送存储器读写请求前，首先在本地ATC查找是否有该地址的Entry。该地址为转换前地址，是DMA看到的虚地址；该地址在ATC中的Entry是指该虚地址经过地址转化后的真实物理地址。若在ATC内查找成功，直接采用转换后地址进行访问，否则给TA发送该虚地址的地址转换请求。
 
-![Alt text](./img/image_230621_182122.png)
+![Alt text](img/image_230621_182122.png)
 
   上图展示了一个基本的ATS转换请求-完成的操作。其动态工作流程如下：
 Device/Function产生ATS转换请求，经PCIe拓扑路由到达RC，RC将该请求推给TA；
@@ -53,9 +53,9 @@ TA在收到地址转换请求后，查找其本地ATPT，并给Device/Function�
 
   带有ATC的Device可以选择发送经过/未经地址转换的存储器访问请求。 存储器访问请求的TLP头标（64bit）格式如下图所示。ATS地址转换请求的TLP头标格式与存储器读请求TLP头标格式相似，ATS地址转换请求头标格式如下图所示。
 
-![Alt text](./img/image_230621_182736.png)
+![Alt text](img/image_230621_182736.png)
 
-![Alt text](./img/image_230621_182811.png)
+![Alt text](img/image_230621_182811.png)
 
 比较可见，地址转换请求与ATS地址转换请求TLP头标的主要区别在于以下3点：
 
@@ -121,7 +121,7 @@ ATS有转换请求超时退出机制，若发出地址转换请求后迟迟等�
 
 转换完成TLP头标如下图所示。
 
-​    ![0](https://note.youdao.com/yws/res/7409/WEBRESOURCE80b42cf2afc0783ae945cbe983464911)
+![Alt text](img/image_230625_095654.png)
 
 Cpl.Status: 地址转换完成状态。000b -> 成功；001b -> 不支持的请求（UR），TA地址转换失败。Device/Function收到该状态后需关闭ATC，且在重新开启ATC之前不应发送任何已转换地址的内存访问请求；010b -> 配置请求重传（CRS），若Device/Function收到该状态，需将其当作畸形包处理；100b -> CA，TA出现异常导致其无法处理该转换请求；其他 -> 预留，若 Device/Function收到该完成状态，当UR处理。只有在状态为000b时才表示地址转换成功，该头标后边紧跟data包，否则没有data包。
 
@@ -133,7 +133,7 @@ TC: Cpl/CplD的TC应与该地址的转换请求TC值相同。
 
   若TA无法对Device/Function要求转换的地址进行转换，TA会回复Cpl，此时Byte Count及Lower Address域需要置0，但实际应用中不建议采用这两个域中的值做任何判断。若ATS地址转换成功，在completion消息包后应紧跟携带有转换后地址的数据包CplD，其格式如下图所示。
 
-​    ![0](https://note.youdao.com/yws/res/7412/WEBRESOURCE41b06f59e463ecb8b6804f87ca4dcd20)
+![Alt text](img/image_230625_100133.png)
 
 各域的解释如下表：
 
@@ -149,7 +149,7 @@ TC: Cpl/CplD的TC应与该地址的转换请求TC值相同。
 | U                  | 置一表示该范围地址仅允许通过非转换的地址进行访问。           |
 | W,R                | 标志该地址范围是否可写可读                                   |
 
-​    ![0](https://note.youdao.com/yws/res/7414/WEBRESOURCEb50ee2db5bd1d8520874254aed5f8ce2)
+![Alt text](img/image_230625_100622.png)
 
 补充解释：
 
@@ -181,7 +181,7 @@ U：对于命令缓存等复用率很高的地址，将转换后的地址存入A
 
   如果TA发现其本地某个地址映射发生变化，其需告知Device/Function无需继续在ATC中维护该虚地址Entry。TA通过给Device/Function发送一笔或多笔带有作废地址信息的地址转换作废请求来关闭ATC中该虚地址Entry，单笔作废请求对应至少一笔作废完成包。以单笔地址转换作废请求及作废完成为例，ATS地址转换作废操作如下图所示。
 
-​    ![0](https://note.youdao.com/yws/res/7422/WEBRESOURCEd088e8257497415b8d86fe5c5dab3baa)
+![Alt text](img/image_230625_100221.png)
 
   ATS地址转换作废动态流程有以下三步：
 
@@ -195,7 +195,7 @@ Device/Function在确保发送队列中所有使用待作废转换后地址TLP�
 
   如前文所述，当TA端地址映射发生变动时，其需要将这种变动告知ATC，使ATC中的相应地址变换作废。TA通过发送地址转换作废请求给ATC来保证ATPT及ATC地址映射的一致性。地址转换作废请求TLP的头标格式如图所示。
 
-​    ![0](https://note.youdao.com/yws/res/7424/WEBRESOURCE9c057bb86991470222cf9ccc872d93fd)
+![Alt text](img/image_230625_100850.png)
 
   地址转换作废请求是带有64bit数据载荷的消息MsgD，其数据载荷中有携带有待作废的地址范围的起始值。地址转换作废请求TLP头标可采用任意TC值。作废请求中Itag值范围为0~31，用以对发出去的作废请求加以区分。在收到某笔作废请求的请求完成之前，该笔作废请求使用的ITag不允许重复使用。
 
@@ -203,7 +203,7 @@ Device/Function在确保发送队列中所有使用待作废转换后地址TLP�
 
   作废请求的数据载荷TLP格式如下图所示。S域用以指明要作废的地址范围，使用方法与转换请求S域相同。Glocal Invalidate域是全局invalidate标志位，决定ATC是否将该作废请求应用到所有的PASID。地址位bit[63:12]全为1时表示invalid所有ATC中的内容。
 
-​    ![0](https://note.youdao.com/yws/res/7426/WEBRESOURCEd65b21efe0bf2044a95801481af33e5d)
+![Alt text](img/image_230625_100914.png)
 
 **2.2.2 ATS地址转换作废完成**
 
@@ -261,9 +261,10 @@ ATS能力寄存器，用以设置STU及启用ATS。
 
   分别如下图所示。
 
-​    ![0](https://note.youdao.com/yws/res/7428/WEBRESOURCEa757e9ce641385765d77f5dee2c7f646)
+![Alt text](img/image_230625_101023.png)
 
-**📖 参考**
+
+**参考**
 
 PCI Express Base Specification Revision 5.0 Version 1.0 (22 May 2019)
 
@@ -287,8 +288,5 @@ PCIe SR-IOV：为什么需要SR-IOV
 
 Linux source code
 
-————————————————
-
-版权声明：本文为CSDN博主「MangoPapa」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
 
 原文链接：https://blog.csdn.net/weixin_40357487/article/details/120245027
